@@ -44,8 +44,61 @@ function filterMonths(months: MonthlySummary[], period: Period): MonthlySummary[
   });
 }
 
+// The comparison shown under the big KPI number is the immediately preceding
+// period of the same granularity (previous month for month periods, previous
+// year for year periods). "all" is special-cased to compare against the most
+// recent month, since there's no broader period to compare it against.
+function getComparison(
+  months: MonthlySummary[],
+  period: Period,
+): { months: MonthlySummary[]; label: string } {
+  if (months.length === 0) return { months: [], label: "" };
+
+  const now = new Date();
+  const thisYear = now.getFullYear();
+  const thisMonth = now.getMonth();
+
+  const byYearMonth = (year: number, month: number) =>
+    months.filter((m) => {
+      const ym = parseYearMonth(m.date);
+      return ym.year === year && ym.month === month;
+    });
+
+  const byYear = (year: number) =>
+    months.filter((m) => parseYearMonth(m.date).year === year);
+
+  switch (period) {
+    case "all": {
+      const last = months[months.length - 1];
+      return { months: [last], label: last.month };
+    }
+    case "thisMonth": {
+      const d = new Date(thisYear, thisMonth - 1, 1);
+      const comp = byYearMonth(d.getFullYear(), d.getMonth());
+      return { months: comp, label: comp[0]?.month ?? "Mes anterior" };
+    }
+    case "lastMonth": {
+      const d = new Date(thisYear, thisMonth - 2, 1);
+      const comp = byYearMonth(d.getFullYear(), d.getMonth());
+      return { months: comp, label: comp[0]?.month ?? "Mes previo" };
+    }
+    case "thisYear": {
+      const year = thisYear - 1;
+      return { months: byYear(year), label: String(year) };
+    }
+    case "lastYear": {
+      const year = thisYear - 2;
+      return { months: byYear(year), label: String(year) };
+    }
+    default: {
+      const year = Number(period.slice("year:".length)) - 1;
+      return { months: byYear(year), label: String(year) };
+    }
+  }
+}
+
 export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
-  const [period, setPeriod] = useState<Period>("all");
+  const [period, setPeriod] = useState<Period>("thisYear");
 
   const olderYears = useMemo(() => {
     const thisYear = new Date().getFullYear();
@@ -56,7 +109,11 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
   }, [months]);
 
   const filteredMonths = useMemo(() => filterMonths(months, period), [months, period]);
-  const kpis = useMemo(() => buildKpiSummaries(filteredMonths), [filteredMonths]);
+  const comparison = useMemo(() => getComparison(months, period), [months, period]);
+  const kpis = useMemo(
+    () => buildKpiSummaries(filteredMonths, comparison.months),
+    [filteredMonths, comparison.months],
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -84,7 +141,7 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {kpis.map((kpi) => (
-          <KpiCard key={kpi.key} kpi={kpi} />
+          <KpiCard key={kpi.key} kpi={kpi} comparisonLabel={comparison.label} />
         ))}
       </section>
 
