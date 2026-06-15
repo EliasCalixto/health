@@ -6,9 +6,9 @@ import {
   getTherapySessions,
   getWorkouts,
 } from "@/lib/notion";
-import { buildKpiSummaries, summarizeWorkoutsByType } from "@/lib/stats";
-import { KpiCard } from "@/components/KpiCard";
-import { MetricTrendChart } from "@/components/MetricTrendChart";
+import { summarizeWorkoutsByType } from "@/lib/stats";
+import { InlineMarkdown } from "@/components/InlineMarkdown";
+import { MonthlyDashboard } from "@/components/MonthlyDashboard";
 import { SectionCard } from "@/components/SectionCard";
 import { TherapyList } from "@/components/TherapyList";
 import { WorkoutsTable } from "@/components/WorkoutsTable";
@@ -32,7 +32,6 @@ export default async function Home() {
     return <ErrorNotice error={error} />;
   }
 
-  const kpis = buildKpiSummaries(months);
   const workoutTypes = summarizeWorkoutsByType(workouts);
   const lastUpdated = [
     months.at(-1)?.date,
@@ -48,7 +47,7 @@ export default async function Home() {
         <h1 className="text-2xl font-bold sm:text-3xl">🩺 Health Dashboard</h1>
         {intro && (
           <p className="mt-2 max-w-3xl text-sm text-zinc-500 dark:text-zinc-400">
-            {intro}
+            <InlineMarkdown text={intro} />
           </p>
         )}
         {lastUpdated && (
@@ -61,61 +60,7 @@ export default async function Home() {
         </p>
       </header>
 
-      <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {kpis.map((kpi) => (
-          <KpiCard key={kpi.key} kpi={kpi} />
-        ))}
-      </section>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <SectionCard title="Pasos por día" description="Promedio diario por mes">
-          <MetricTrendChart
-            data={months}
-            series={[{ dataKey: "steps", label: "Pasos/día", color: "#3b82f6" }]}
-          />
-        </SectionCard>
-
-        <SectionCard title="Sueño" description="Horas promedio por noche">
-          <MetricTrendChart
-            data={months}
-            series={[{ dataKey: "sleepHours", label: "Sueño (h)", color: "#8b5cf6" }]}
-          />
-        </SectionCard>
-
-        <SectionCard title="Corazón" description="FC en reposo y HRV (SDNN)">
-          <MetricTrendChart
-            data={months}
-            series={[
-              { dataKey: "restingHeartRate", label: "FC reposo (bpm)", color: "#ef4444" },
-              { dataKey: "hrv", label: "HRV (ms)", color: "#10b981" },
-            ]}
-          />
-        </SectionCard>
-
-        <SectionCard title="VO₂máx" description="Capacidad cardiorrespiratoria">
-          <MetricTrendChart
-            data={months}
-            series={[{ dataKey: "vo2max", label: "VO₂máx", color: "#f59e0b" }]}
-          />
-        </SectionCard>
-
-        <SectionCard title="Energía y ejercicio" description="Promedios diarios por mes">
-          <MetricTrendChart
-            data={months}
-            series={[
-              { dataKey: "energy", label: "Energía activa (Cal)", color: "#f97316", yAxisId: "right" },
-              { dataKey: "exerciseMinutes", label: "Ejercicio (min)", color: "#06b6d4" },
-            ]}
-          />
-        </SectionCard>
-
-        <SectionCard title="Pisos subidos" description="Promedio diario por mes">
-          <MetricTrendChart
-            data={months}
-            series={[{ dataKey: "floors", label: "Pisos/día", color: "#84cc16" }]}
-          />
-        </SectionCard>
-      </div>
+      <MonthlyDashboard months={months} />
 
       <SectionCard
         title="🏋️ Entrenamientos"

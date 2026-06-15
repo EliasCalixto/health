@@ -32,9 +32,16 @@ export function MetricTrendChart({
 
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <LineChart data={data} margin={{ top: 8, right: 12, bottom: 0, left: -16 }}>
+      <LineChart data={data} margin={{ top: 8, right: 12, bottom: 16, left: -16 }}>
         <CartesianGrid strokeDasharray="3 3" className="stroke-black/10 dark:stroke-white/10" />
-        <XAxis dataKey="month" tick={{ fontSize: 11 }} interval="preserveStartEnd" />
+        <XAxis
+          dataKey="month"
+          tick={{ fontSize: 11 }}
+          interval="preserveStartEnd"
+          angle={-35}
+          textAnchor="end"
+          height={50}
+        />
         <YAxis yAxisId="left" tick={{ fontSize: 11 }} width={48} />
         {hasRightAxis && (
           <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} width={48} />
