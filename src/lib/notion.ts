@@ -21,7 +21,7 @@ function getClient(): Client {
     throw new Error("Falta la variable de entorno NOTION_TOKEN");
   }
   if (!client) {
-    client = new Client({ auth: NOTION_TOKEN, notionVersion: "2022-06-28" });
+    client = new Client({ auth: NOTION_TOKEN });
   }
   return client;
 }
