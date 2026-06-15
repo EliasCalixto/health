@@ -16,9 +16,8 @@ export type KpiSummary = {
   key: MetricKey;
   label: string;
   unit: string;
-  latest: number | null;
-  latestMonth: string | null;
-  average: number | null;
+  value: number | null;
+  comparison: number | null;
   decimals: number;
 };
 
@@ -38,22 +37,22 @@ function average(values: number[]): number | null {
   return values.reduce((sum, v) => sum + v, 0) / values.length;
 }
 
-export function buildKpiSummaries(months: MonthlySummary[]): KpiSummary[] {
-  return KPI_DEFS.map(({ key, label, unit, decimals }) => {
-    const withValue = months.filter((m) => m[key] != null);
-    const latestEntry = withValue[withValue.length - 1] ?? null;
-    const historical = withValue.slice(0, -1).map((m) => m[key] as number);
+function averageOf(months: MonthlySummary[], key: MetricKey): number | null {
+  return average(months.filter((m) => m[key] != null).map((m) => m[key] as number));
+}
 
-    return {
-      key,
-      label,
-      unit,
-      decimals,
-      latest: latestEntry ? (latestEntry[key] as number) : null,
-      latestMonth: latestEntry ? latestEntry.month : null,
-      average: average(historical.length > 0 ? historical : withValue.map((m) => m[key] as number)),
-    };
-  });
+export function buildKpiSummaries(
+  months: MonthlySummary[],
+  comparisonMonths: MonthlySummary[],
+): KpiSummary[] {
+  return KPI_DEFS.map(({ key, label, unit, decimals }) => ({
+    key,
+    label,
+    unit,
+    decimals,
+    value: averageOf(months, key),
+    comparison: averageOf(comparisonMonths, key),
+  }));
 }
 
 export function summarizeWorkoutsByType(workouts: Workout[]): WorkoutTypeSummary[] {
