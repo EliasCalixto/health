@@ -19,17 +19,25 @@ export type KpiSummary = {
   value: number | null;
   comparison: number | null;
   decimals: number;
+  // Si un valor más alto es más saludable (pasos, HRV...) o no (FC en reposo).
+  higherIsBetter: boolean;
 };
 
-const KPI_DEFS: { key: MetricKey; label: string; unit: string; decimals: number }[] = [
-  { key: "steps", label: "Pasos por día", unit: "pasos", decimals: 0 },
-  { key: "sleepHours", label: "Sueño por noche", unit: "h", decimals: 1 },
-  { key: "restingHeartRate", label: "FC en reposo", unit: "bpm", decimals: 1 },
-  { key: "hrv", label: "HRV (SDNN)", unit: "ms", decimals: 1 },
-  { key: "vo2max", label: "VO₂máx", unit: "mL/min·kg", decimals: 1 },
-  { key: "exerciseMinutes", label: "Ejercicio por día", unit: "min", decimals: 0 },
-  { key: "energy", label: "Energía activa diaria", unit: "Cal", decimals: 0 },
-  { key: "floors", label: "Pisos por día", unit: "pisos", decimals: 1 },
+const KPI_DEFS: {
+  key: MetricKey;
+  label: string;
+  unit: string;
+  decimals: number;
+  higherIsBetter: boolean;
+}[] = [
+  { key: "steps", label: "Pasos por día", unit: "pasos", decimals: 0, higherIsBetter: true },
+  { key: "sleepHours", label: "Sueño por noche", unit: "h", decimals: 1, higherIsBetter: true },
+  { key: "restingHeartRate", label: "FC en reposo", unit: "bpm", decimals: 1, higherIsBetter: false },
+  { key: "hrv", label: "HRV (SDNN)", unit: "ms", decimals: 1, higherIsBetter: true },
+  { key: "vo2max", label: "VO₂máx", unit: "mL/min·kg", decimals: 1, higherIsBetter: true },
+  { key: "exerciseMinutes", label: "Ejercicio por día", unit: "min", decimals: 0, higherIsBetter: true },
+  { key: "energy", label: "Energía activa diaria", unit: "Cal", decimals: 0, higherIsBetter: true },
+  { key: "floors", label: "Pisos por día", unit: "pisos", decimals: 1, higherIsBetter: true },
 ];
 
 function average(values: number[]): number | null {
@@ -45,11 +53,12 @@ export function buildKpiSummaries(
   months: MonthlySummary[],
   comparisonMonths: MonthlySummary[],
 ): KpiSummary[] {
-  return KPI_DEFS.map(({ key, label, unit, decimals }) => ({
+  return KPI_DEFS.map(({ key, label, unit, decimals, higherIsBetter }) => ({
     key,
     label,
     unit,
     decimals,
+    higherIsBetter,
     value: averageOf(months, key),
     comparison: averageOf(comparisonMonths, key),
   }));
