@@ -41,4 +41,5 @@ export type WorkoutTypeSummary = {
 export type TherapySession = {
   name: string;
   date: string | null;
+  url: string;
 };
