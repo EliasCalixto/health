@@ -9,6 +9,14 @@ import { SectionCard } from "./SectionCard";
 
 type Period = "all" | "thisMonth" | "lastMonth" | "thisYear" | "lastYear" | `year:${number}`;
 
+// Parse the calendar year/month straight from the ISO date string ("2026-06-01")
+// to avoid the timezone shift that `new Date(...)` introduces: UTC midnight read in
+// a negative-offset locale rolls a "01" date back to the previous month.
+function parseYearMonth(dateStr: string): { year: number; month: number } {
+  const [year, month] = dateStr.split("-").map(Number);
+  return { year, month: (month || 1) - 1 };
+}
+
 function filterMonths(months: MonthlySummary[], period: Period): MonthlySummary[] {
   if (period === "all") return months;
 
@@ -17,9 +25,7 @@ function filterMonths(months: MonthlySummary[], period: Period): MonthlySummary[
   const thisMonth = now.getMonth();
 
   return months.filter((m) => {
-    const d = new Date(m.date);
-    const year = d.getFullYear();
-    const month = d.getMonth();
+    const { year, month } = parseYearMonth(m.date);
 
     switch (period) {
       case "thisMonth":
@@ -43,10 +49,10 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
 
   const olderYears = useMemo(() => {
     const thisYear = new Date().getFullYear();
-    const years = new Set(months.map((m) => new Date(m.date).getFullYear()));
+    const years = new Set(months.map((m) => parseYearMonth(m.date).year));
     return Array.from(years)
       .filter((year) => year < thisYear - 1)
-      .sort((a, b) => a - b);
+      .sort((a, b) => b - a);
   }, [months]);
 
   const filteredMonths = useMemo(() => filterMonths(months, period), [months, period]);
