@@ -51,8 +51,8 @@ function filterMonths(months: MonthlySummary[], period: Period): MonthlySummary[
 function getComparison(
   months: MonthlySummary[],
   period: Period,
-): { months: MonthlySummary[]; label: string } {
-  if (months.length === 0) return { months: [], label: "" };
+): { months: MonthlySummary[]; label: string; note: string } {
+  if (months.length === 0) return { months: [], label: "", note: "" };
 
   const now = new Date();
   const thisYear = now.getFullYear();
@@ -70,29 +70,35 @@ function getComparison(
   switch (period) {
     case "all": {
       const last = months[months.length - 1];
-      return { months: [last], label: last.month };
+      return {
+        months: [last],
+        label: last.month,
+        note: `Promedio histórico · la flecha compara ${last.month} contra el promedio`,
+      };
     }
     case "thisMonth": {
       const d = new Date(thisYear, thisMonth - 1, 1);
       const comp = byYearMonth(d.getFullYear(), d.getMonth());
-      return { months: comp, label: comp[0]?.month ?? "Mes anterior" };
+      const label = comp[0]?.month ?? "Mes anterior";
+      return { months: comp, label, note: `Comparado con el mes anterior (${label})` };
     }
     case "lastMonth": {
       const d = new Date(thisYear, thisMonth - 2, 1);
       const comp = byYearMonth(d.getFullYear(), d.getMonth());
-      return { months: comp, label: comp[0]?.month ?? "Mes previo" };
+      const label = comp[0]?.month ?? "Mes previo";
+      return { months: comp, label, note: `Comparado con ${label}` };
     }
     case "thisYear": {
       const year = thisYear - 1;
-      return { months: byYear(year), label: String(year) };
+      return { months: byYear(year), label: String(year), note: `Comparado con ${year}` };
     }
     case "lastYear": {
       const year = thisYear - 2;
-      return { months: byYear(year), label: String(year) };
+      return { months: byYear(year), label: String(year), note: `Comparado con ${year}` };
     }
     default: {
       const year = Number(period.slice("year:".length)) - 1;
-      return { months: byYear(year), label: String(year) };
+      return { months: byYear(year), label: String(year), note: `Comparado con ${year}` };
     }
   }
 }
@@ -139,9 +145,22 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
         </label>
       </div>
 
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-zinc-400">
+        <span>{comparison.note}</span>
+        <span>
+          <span className="text-emerald-500">▲</span> mejor ·{" "}
+          <span className="text-rose-500">▼</span> peor
+        </span>
+      </div>
+
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {kpis.map((kpi) => (
-          <KpiCard key={kpi.key} kpi={kpi} comparisonLabel={comparison.label} />
+          <KpiCard
+            key={kpi.key}
+            kpi={kpi}
+            comparisonLabel={comparison.label}
+            invert={period === "all"}
+          />
         ))}
       </section>
 
