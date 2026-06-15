@@ -15,8 +15,6 @@ import { WorkoutsTable } from "@/components/WorkoutsTable";
 import { WorkoutTypeChart } from "@/components/WorkoutTypeChart";
 import { WorkoutTypeSummaryTable } from "@/components/WorkoutTypeSummaryTable";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
   if (!NOTION_TOKEN) {
     return <SetupNotice />;
@@ -58,6 +56,9 @@ export default async function Home() {
             Última actualización de datos: {formatDate(lastUpdated)}
           </p>
         )}
+        <p className="mt-1 text-xs text-zinc-400">
+          Página generada el {formatDate(new Date().toISOString())}
+        </p>
       </header>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
