@@ -130,6 +130,7 @@ export async function getTherapySessions(): Promise<TherapySession[]> {
       return {
         name: getTitle(props, "Name"),
         date: getDate(props, "Date"),
+        url: page.url,
       };
     })
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));

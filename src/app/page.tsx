@@ -1,5 +1,4 @@
 import { NOTION_TOKEN } from "@/lib/config";
-import { formatDate } from "@/lib/format";
 import {
   getHealthPageIntro,
   getMonthlySummary,
@@ -7,6 +6,7 @@ import {
   getWorkouts,
 } from "@/lib/notion";
 import { summarizeWorkoutsByType } from "@/lib/stats";
+import { HeartRateIcon } from "@/components/HeartRateIcon";
 import { InlineMarkdown } from "@/components/InlineMarkdown";
 import { MonthlyDashboard } from "@/components/MonthlyDashboard";
 import { SectionCard } from "@/components/SectionCard";
@@ -33,31 +33,18 @@ export default async function Home() {
   }
 
   const workoutTypes = summarizeWorkoutsByType(workouts);
-  const lastUpdated = [
-    months.at(-1)?.date,
-    workouts[0]?.date,
-  ]
-    .filter((d): d is string => Boolean(d))
-    .sort()
-    .at(-1);
-
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
       <header>
-        <h1 className="text-2xl font-bold sm:text-3xl">🩺 Health Dashboard</h1>
+        <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+          <HeartRateIcon className="h-7 w-7 sm:h-8 sm:w-8" />
+          Health Dashboard
+        </h1>
         {intro && (
           <p className="mt-2 max-w-3xl text-sm text-zinc-500 dark:text-zinc-400">
             <InlineMarkdown text={intro} />
           </p>
         )}
-        {lastUpdated && (
-          <p className="mt-1 text-xs text-zinc-400">
-            Última actualización de datos: {formatDate(lastUpdated)}
-          </p>
-        )}
-        <p className="mt-1 text-xs text-zinc-400">
-          Página generada el {formatDate(new Date().toISOString())}
-        </p>
       </header>
 
       <MonthlyDashboard months={months} />
