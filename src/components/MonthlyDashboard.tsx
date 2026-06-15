@@ -122,7 +122,7 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex min-w-0 flex-col gap-6">
       <div className="flex justify-end">
         <label className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
           Periodo
@@ -164,7 +164,7 @@ export function MonthlyDashboard({ months }: { months: MonthlySummary[] }) {
         ))}
       </section>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-2">
         <SectionCard title="Pasos por día" description="Promedio diario por mes">
           <MetricTrendChart
             data={filteredMonths}
