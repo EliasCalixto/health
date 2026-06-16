@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#15161B">
-<title>Mi Rutina — Hipertrofia + Movilidad</title>
+<title>Mi Rutina — En casa (barras + corredora)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -307,12 +307,12 @@
 <div class="wrap" id="app">
 
   <header>
-    <div class="eyebrow">Plan semanal · 1 h / día</div>
-    <h1>Mi rutina<span>de gym</span></h1>
+    <div class="eyebrow">Plan semanal · 45 min / día</div>
+    <h1>Mi rutina<span>en casa</span></h1>
     <div class="meta">
-      <b>HIPERTROFIA + MOVILIDAD</b>
-      <b>PUSH · PULL · PIERNA ×2</b>
-      <b>7 DÍAS</b>
+      <b>CALISTENIA + CARRERA</b>
+      <b>BARRAS · CORREDORA</b>
+      <b>7 DÍAS · 45 MIN</b>
     </div>
   </header>
 
@@ -393,110 +393,167 @@
     </div>
   </section>
 
-  <div class="sec-label">Principios para crecer</div>
+  <div class="sec-label">Principios sin gym</div>
   <div class="grid4">
-    <div class="pcard"><div class="pk">↑</div><h3>Sobrecarga progresiva</h3><p>Sube peso o repeticiones cada semana. Sin progresión, no hay crecimiento.</p></div>
-    <div class="pcard"><div class="pk">1.6–2</div><h3>Proteína</h3><p>Gramos por kg de peso corporal al día. El músculo se construye en la cocina.</p></div>
+    <div class="pcard"><div class="pk">↑↑</div><h3>Progresión</h3><p>Cuando una variante se vuelva fácil, pasa a una más difícil: inclinada → plana → declinada → a una mano.</p></div>
+    <div class="pcard"><div class="pk">1.6–2</div><h3>Proteína</h3><p>Gramos por kg al día. Sin material pesado, la dieta es tu mayor palanca.</p></div>
     <div class="pcard"><div class="pk">7–9</div><h3>Sueño</h3><p>Horas por noche. El músculo crece cuando descansas, no mientras entrenas.</p></div>
-    <div class="pcard"><div class="pk">8–12</div><h3>Rango de reps</h3><p>Zona ideal de hipertrofia. Descansa 60–90 s entre series.</p></div>
+    <div class="pcard"><div class="pk">RIR 1–2</div><h3>Cerca del fallo</h3><p>Lleva cada serie a 1–2 reps del fallo. Si superas 20+ reps fáciles, sube la dificultad.</p></div>
   </div>
 
   <div class="foot">
-    <b>¿7 días seguidos?</b> Funciona porque cada grupo muscular descansa ~72 h con este split. Pero si un día estás agotado o muy adolorido, un descanso completo <b>suma</b>, no resta. Escucha a tu cuerpo.
+    <b>¿7 días seguidos?</b> Cada grupo muscular descansa ~48–72 h con este split, y los días de carrera (3) y movilidad (7) ya son recuperación activa. Solo necesitas tu <b>corredora</b> y unas <b>barras</b>. Si un día estás agotado, camina suave o descansa: sumar descanso <b>suma</b>, no resta.
   </div>
 
 </div>
 
 <script>
-const ACCENT = {push:'#FF8A3D', pull:'#38C7F0', legs:'#C2E23A', mob:'#B79CFF'};
+const ACCENT = {push:'#FF8A3D', push2:'#FF8A3D', pull:'#38C7F0', pull2:'#38C7F0', cardio:'#FF5C5C', legs:'#C2E23A', mob:'#B79CFF'};
 
 const WEEK = [
   {n:'Día 1', short:'Empuje', type:'push'},
   {n:'Día 2', short:'Jalón',  type:'pull'},
-  {n:'Día 3', short:'Pierna', type:'legs'},
-  {n:'Día 4', short:'Empuje', type:'push'},
-  {n:'Día 5', short:'Jalón',  type:'pull'},
-  {n:'Día 6', short:'Pierna', type:'legs'},
+  {n:'Día 3', short:'Carrera', type:'cardio'},
+  {n:'Día 4', short:'Pierna', type:'legs'},
+  {n:'Día 5', short:'Empuje', type:'push2'},
+  {n:'Día 6', short:'Jalón',  type:'pull2'},
   {n:'Día 7', short:'Movilidad', type:'mob'},
 ];
 
 const PLANS = {
   push:{
     focus:'Empuje', sub:'Pecho · Hombro · Tríceps',
-    chips:['<b>Calentar</b> 5–10′','<b>Fuerza</b> ~40′','<b>Estirar</b> 10′'],
+    chips:['<b>Trote</b> 5′','<b>Fuerza</b> ~35′','<b>Estirar</b> 5′'],
     muscles:['chest','frontdelt','triceps'],
     ex:[
-      {name:'Press de banca', vol:'4×8-10', target:['chest','frontdelt','triceps'], move:'bounce',
-        cue:'Acostado en el banco, baja la barra hasta el pecho con control y empuja hacia arriba extendiendo los brazos.'},
-      {name:'Press inclinado con mancuernas', vol:'3×10-12', target:['chest','frontdelt'], move:'bounce',
-        cue:'En banco inclinado ~30°, empuja las mancuernas hacia arriba y ligeramente hacia adentro, baja hasta sentir el estiramiento en el pecho.'},
-      {name:'Press militar de hombro', vol:'3×8-10', target:['frontdelt','triceps'], move:'bounce',
-        cue:'De pie o sentado, empuja el peso por encima de la cabeza hasta extender los brazos, baja controlado a la altura de los hombros.'},
-      {name:'Elevaciones laterales', vol:'3×12-15', target:['frontdelt','reardelt'], move:'bounce',
-        cue:'Con los brazos casi rectos a los costados, levántalos hasta la altura de los hombros sin balancear el torso, baja controlado.'},
-      {name:'Fondos o press francés', sub:'tríceps', vol:'3×10-12', target:['triceps'], move:'bounce',
-        cue:'Extiende los brazos empujando el peso hacia arriba, flexiona el codo de forma controlada al bajar.'},
-      {name:'Extensión de tríceps en polea', vol:'3×12-15', target:['triceps'], move:'bounce',
-        cue:'Codos pegados al cuerpo, extiende los antebrazos hacia abajo hasta estirar por completo, vuelve sin soltar la tensión.'},
+      {name:'Fondos en paralelas', sub:'dips', vol:'4×8-12', target:['chest','triceps','frontdelt'], move:'bounce',
+        cue:'Sujétate en las barras paralelas con los brazos extendidos, baja flexionando los codos hasta que el hombro quede a la altura del codo y empuja para subir. Inclínate al frente para más pecho, recto para más tríceps.'},
+      {name:'Flexiones', sub:'push-ups', vol:'4×15-20', target:['chest','frontdelt','triceps'], move:'bounce',
+        cue:'Manos un poco más anchas que los hombros, cuerpo en línea recta. Baja el pecho casi al suelo y empuja sin dejar caer la cadera.'},
+      {name:'Flexiones declinadas', sub:'pies elevados', vol:'3×12-15', target:['chest','frontdelt'], move:'bounce',
+        cue:'Apoya los pies en una silla o escalón. Con el cuerpo inclinado hacia abajo, baja el pecho y empuja; enfatiza la parte alta del pecho y el hombro.'},
+      {name:'Flexión en pica', sub:'pike push-up', vol:'3×8-12', target:['frontdelt','triceps'], move:'bounce',
+        cue:'Cadera arriba formando una V invertida. Baja la cabeza hacia el suelo flexionando los codos y empuja; simula un press de hombro.'},
+      {name:'Flexiones diamante', vol:'3×12-15', target:['triceps','chest'], move:'bounce',
+        cue:'Junta las manos formando un diamante bajo el pecho. Baja con los codos pegados al cuerpo para cargar el tríceps.'},
+      {name:'Fondos de tríceps en banco', vol:'3×15', target:['triceps'], move:'bounce',
+        cue:'Manos en el borde de una silla detrás de ti y piernas al frente. Baja flexionando los codos hacia atrás y empuja para subir.'},
     ]
   },
   pull:{
     focus:'Jalón', sub:'Espalda · Bíceps',
-    chips:['<b>Calentar</b> 5–10′','<b>Fuerza</b> ~40′','<b>Estirar</b> 10′'],
+    chips:['<b>Trote</b> 5′','<b>Fuerza</b> ~35′','<b>Estirar</b> 5′'],
     muscles:['back','traps','reardelt','biceps','forearms'],
     ex:[
-      {name:'Dominadas o jalón al pecho', vol:'4×8-10', target:['back','biceps'], move:'bounce',
-        cue:'Desde los brazos extendidos, jala tu cuerpo (o la barra) hacia arriba hasta que la barbilla pase la barra, baja controlado.'},
-      {name:'Remo con barra', vol:'4×8-10', target:['back','reardelt'], move:'bounce',
-        cue:'Inclina el torso manteniendo la espalda recta, jala la barra hacia el abdomen apretando los omóplatos, baja controlado.'},
-      {name:'Remo con mancuerna', vol:'3×10-12', target:['back','biceps'], move:'bounce',
-        cue:'Apoya una rodilla y mano en el banco, jala la mancuerna hacia la cadera manteniendo el codo cerca del cuerpo.'},
-      {name:'Face pulls', sub:'hombro posterior', vol:'3×12-15', target:['reardelt','traps'], move:'bounce',
-        cue:'Jala la cuerda hacia tu cara separando las manos, codos altos, aprieta los omóplatos al final del movimiento.'},
-      {name:'Curl de bíceps con barra', vol:'3×10-12', target:['biceps'], move:'rotate',
-        cue:'Codos fijos al costado del cuerpo, flexiona los antebrazos llevando la barra hacia los hombros, baja controlado.'},
-      {name:'Curl martillo', vol:'3×12', target:['biceps','forearms'], move:'rotate',
-        cue:'Con agarre neutro (palmas enfrentadas), flexiona los antebrazos hacia los hombros sin mover los codos.'},
+      {name:'Dominadas pronas', sub:'pull-ups', vol:'4×6-10', target:['back','biceps'], move:'bounce',
+        cue:'Agarre con palmas al frente, algo más anchas que los hombros. Jala el cuerpo hasta pasar la barbilla por la barra apretando la espalda, baja controlado hasta estirar.'},
+      {name:'Dominadas supinas', sub:'chin-ups', vol:'3×8-12', target:['biceps','back'], move:'bounce',
+        cue:'Palmas hacia ti, agarre al ancho de hombros. Sube llevando el pecho a la barra; enfatiza el bíceps.'},
+      {name:'Remo invertido', sub:'bajo la barra', vol:'4×12-15', target:['back','reardelt','biceps'], move:'bounce',
+        cue:'Cuélgate bajo una barra baja con el cuerpo recto y los talones en el suelo. Jala el pecho hacia la barra apretando los omóplatos, baja controlado.'},
+      {name:'Dominadas agarre ancho', vol:'3×6-8', target:['back','traps','reardelt'], move:'bounce',
+        cue:'Agarre amplio. Jala llevando la parte alta del pecho hacia la barra para cargar la espalda alta y el dorsal.'},
+      {name:'Curl en barra baja', sub:'o isométrico', vol:'3×10-12', target:['biceps','forearms'], move:'rotate',
+        cue:'Sujeta una barra baja en supino con el cuerpo inclinado y flexiona solo los codos llevando la frente hacia la barra usando los bíceps.'},
+      {name:'Colgado activo', sub:'dead hang', vol:'3×30s', target:['forearms','back'], move:'pulse',
+        cue:'Cuélgate de la barra con los brazos extendidos y los hombros activos (lejos de las orejas). Aguanta para fortalecer agarre y espalda.'},
+    ]
+  },
+  cardio:{
+    focus:'Carrera + HIIT', sub:'Cardio · Core · Quema',
+    chips:['<b>Calentar</b> 5′','<b>HIIT</b> ~30′','<b>Enfriar</b> 5′'],
+    muscles:['quads','hamstrings','glutes','calves','abs'],
+    ex:[
+      {name:'Calentamiento progresivo', sub:'corredora', vol:'5′', target:['quads','calves','hamstrings'], move:'bounce',
+        cue:'Empieza caminando y sube el ritmo poco a poco hasta un trote cómodo. Prepara el corazón y las piernas.'},
+      {name:'Intervalos HIIT', sub:'sprint / descanso', vol:'8× 40s/80s', target:['quads','hamstrings','calves'], move:'bounce',
+        cue:'Corre fuerte 40 segundos (8–9 de esfuerzo sobre 10) y trota o camina 80 segundos para recuperar. Repite 8 veces.'},
+      {name:'Cuestas', sub:'inclinación alta', vol:'6×1′', target:['glutes','quads','calves'], move:'bounce',
+        cue:'Sube la inclinación de la corredora y camina o trota fuerte 1 minuto; baja la inclinación 1 minuto para recuperar.'},
+      {name:'Plancha', vol:'3×45s', target:['abs','lowerback'], move:'pulse',
+        cue:'Antebrazos en el suelo, cuerpo recto de cabeza a talones. Aprieta el abdomen y el glúteo sin dejar caer la cadera.'},
+      {name:'Escaladores', sub:'mountain climbers', vol:'3×30s', target:['abs','quads'], move:'bounce',
+        cue:'En posición de flexión, lleva las rodillas al pecho de forma alternada y rápida manteniendo la cadera estable.'},
+      {name:'Enfriamiento', sub:'trote suave', vol:'5′', target:['calves','hamstrings'], move:'bounce',
+        cue:'Baja el ritmo gradualmente hasta caminar. Recupera la respiración antes de estirar.'},
     ]
   },
   legs:{
     focus:'Pierna', sub:'Cuádriceps · Femoral · Glúteo',
-    chips:['<b>Calentar</b> 5–10′','<b>Fuerza</b> ~40′','<b>Estirar</b> 10′'],
-    muscles:['quads','hamstrings','glutes','calves'],
+    chips:['<b>Trote</b> 5′','<b>Fuerza</b> ~35′','<b>Cuestas</b> 5′'],
+    muscles:['quads','hamstrings','glutes','calves','lowerback'],
     ex:[
-      {name:'Sentadilla', vol:'4×8-10', target:['quads','glutes'], move:'bounce',
-        cue:'Baja flexionando rodillas y caderas con la espalda recta, hasta que los muslos queden paralelos al piso, empuja para subir.'},
-      {name:'Prensa', vol:'3×10-12', target:['quads','glutes'], move:'bounce',
-        cue:'Empuja la plataforma extendiendo las piernas, controla la bajada doblando las rodillas hacia el pecho.'},
-      {name:'Peso muerto rumano', sub:'femoral', vol:'3×10-12', target:['hamstrings','glutes','lowerback'], move:'bounce',
-        cue:'Con piernas casi rectas, lleva la cadera hacia atrás bajando el peso pegado a las piernas hasta sentir el estiramiento en isquios, vuelve apretando el glúteo.'},
-      {name:'Zancadas', vol:'3×12 / pierna', target:['quads','glutes','hamstrings'], move:'bounce',
-        cue:'Da un paso largo al frente y baja la rodilla trasera hacia el piso, empuja con la pierna delantera para volver.'},
-      {name:'Extensión de cuádriceps', vol:'3×12-15', target:['quads'], move:'bounce',
-        cue:'Sentado, extiende las rodillas levantando el peso hasta que las piernas queden rectas, baja controlado.'},
-      {name:'Elevación de gemelos', vol:'4×15-20', target:['calves'], move:'bounce',
-        cue:'Sube los talones lo más alto posible apoyándote en la punta de los pies, mantén un segundo arriba y baja controlado.'},
+      {name:'Sentadilla búlgara', sub:'pie trasero elevado', vol:'4×12 / pierna', target:['quads','glutes'], move:'bounce',
+        cue:'Apoya el empeine trasero en una silla. Baja la rodilla delantera flexionando hasta ~90° y empuja con el talón para subir.'},
+      {name:'Zancadas caminando', vol:'3×16', target:['quads','glutes','hamstrings'], move:'bounce',
+        cue:'Da pasos largos al frente bajando la rodilla trasera cerca del suelo, mantén el torso erguido y alterna piernas.'},
+      {name:'Sentadilla a una pierna', sub:'pistol asistida', vol:'3×6-8 / pierna', target:['quads','glutes'], move:'bounce',
+        cue:'Sobre una pierna, baja despacio (puedes sujetarte de un marco para asistirte) y sube controlando. Progresa reduciendo la ayuda.'},
+      {name:'Peso muerto rumano a una pierna', vol:'3×12 / pierna', target:['hamstrings','glutes','lowerback'], move:'bounce',
+        cue:'De pie sobre una pierna, inclina el torso hacia adelante llevando la otra pierna atrás, espalda recta, hasta sentir el femoral; vuelve apretando el glúteo.'},
+      {name:'Puente de glúteo a una pierna', vol:'3×15 / pierna', target:['glutes','hamstrings'], move:'bounce',
+        cue:'Tumbado boca arriba con un pie apoyado, sube la cadera apretando el glúteo hasta alinear el cuerpo, baja sin tocar el suelo.'},
+      {name:'Elevación de gemelos', vol:'4×20', target:['calves'], move:'bounce',
+        cue:'De pie en el borde de un escalón, sube los talones lo más alto posible y baja por debajo del escalón para estirar.'},
+      {name:'Cuestas en corredora', sub:'remate', vol:'5′', target:['quads','glutes','calves'], move:'bounce',
+        cue:'Camina rápido con inclinación máxima para rematar piernas y glúteo al final de la sesión.'},
+    ]
+  },
+  push2:{
+    focus:'Empuje', sub:'Fuerza · Explosividad',
+    chips:['<b>Trote</b> 5′','<b>Fuerza</b> ~35′','<b>Estirar</b> 5′'],
+    muscles:['chest','frontdelt','triceps','abs'],
+    ex:[
+      {name:'Flexiones explosivas', sub:'pliométricas', vol:'4×8-10', target:['chest','frontdelt','triceps'], move:'bounce',
+        cue:'Baja controlado y empuja con fuerza para que las manos despeguen del suelo (aplaude si puedes). Aterriza suave y encadena.'},
+      {name:'Fondos lentos', sub:'tempo 3-1-3', vol:'4×8-10', target:['chest','triceps'], move:'bounce',
+        cue:'En paralelas, baja en 3 segundos, pausa 1 abajo y sube en 3. El tempo lento aumenta la tensión sin añadir peso.'},
+      {name:'Flexión pica elevada', sub:'progresión HSPU', vol:'3×6-10', target:['frontdelt','triceps'], move:'bounce',
+        cue:'Pies sobre una silla y cadera alta; baja la cabeza hacia el suelo casi en vertical y empuja, acercando el press a la vertical.'},
+      {name:'Flexiones arqueras', sub:'archer', vol:'3×6 / lado', target:['chest','frontdelt'], move:'bounce',
+        cue:'Manos muy anchas; baja cargando el peso sobre un brazo mientras el otro queda casi recto, alterna lados. Es un paso hacia la flexión a una mano.'},
+      {name:'Flexiones diamante', vol:'3×15', target:['triceps','chest'], move:'bounce',
+        cue:'Manos juntas bajo el pecho, codos pegados al cuerpo, para aislar el tríceps.'},
+      {name:'Plancha con avance', sub:'up-down plank', vol:'3×12', target:['abs','frontdelt'], move:'pulse',
+        cue:'Pasa de plancha de antebrazos a plancha de manos y vuelve, alternando el brazo que inicia, sin balancear la cadera.'},
+    ]
+  },
+  pull2:{
+    focus:'Jalón', sub:'Fuerza · Control',
+    chips:['<b>Trote</b> 5′','<b>Fuerza</b> ~35′','<b>Estirar</b> 5′'],
+    muscles:['back','reardelt','biceps','forearms','abs'],
+    ex:[
+      {name:'Dominadas lentas', sub:'tempo 3-1-3', vol:'4×6-8', target:['back','biceps'], move:'bounce',
+        cue:'Sube en 3 segundos, pausa arriba y baja en 3 controlando todo el recorrido. El tempo sustituye al lastre.'},
+      {name:'Remo invertido pies elevados', vol:'4×12', target:['back','reardelt','biceps'], move:'bounce',
+        cue:'Con los pies sobre una silla y el cuerpo casi horizontal bajo la barra, jala el pecho a la barra apretando la espalda.'},
+      {name:'Dominadas arqueras', sub:'archer', vol:'3×5 / lado', target:['back','biceps'], move:'bounce',
+        cue:'Jala hacia un lado dejando el otro brazo casi extendido, alterna lados. Progresión hacia la dominada a una mano.'},
+      {name:'Curl supino en barra baja', vol:'3×10-12', target:['biceps','forearms'], move:'rotate',
+        cue:'Cuerpo inclinado bajo una barra baja en supino, flexiona solo los codos llevando la frente a la barra.'},
+      {name:'Rodillas al pecho colgado', sub:'leg raises', vol:'3×12', target:['abs','back'], move:'bounce',
+        cue:'Colgado de la barra, sube las rodillas hacia el pecho con control sin balancearte y baja despacio.'},
+      {name:'Colgado activo', sub:'dead hang', vol:'3×40s', target:['forearms','back'], move:'pulse',
+        cue:'Cuélgate con los hombros activos el mayor tiempo posible para forjar agarre y salud de hombro.'},
     ]
   },
   mob:{
-    focus:'Movilidad', sub:'Cuerpo completo · Recuperación activa',
-    chips:['<b>Recuperación</b> activa','~40–50′','<b>Cardio</b> opcional 20′'],
+    focus:'Movilidad', sub:'Carrera suave · Recuperación',
+    chips:['<b>Carrera</b> suave 20′','<b>Movilidad</b> ~20′','Recuperación'],
     muscles:['all'],
     ex:[
+      {name:'Carrera continua suave', sub:'corredora', vol:'20′', target:['calves','quads','hamstrings'], move:'bounce',
+        cue:'Trote cómodo y constante (5–6 de esfuerzo sobre 10), respirando por la nariz. Mejora la base aeróbica y la recuperación.'},
       {name:'Movilidad de cadera 90/90', vol:'2×60s', target:['glutes','hamstrings'], move:'rotate',
         cue:'Sentado con ambas piernas dobladas a 90°, rota las caderas de un lado al otro manteniendo la espalda recta.'},
-      {name:'Gato–camello', sub:'columna', vol:'8-10', target:['lowerback','traps','abs'], move:'bounce',
-        cue:'En cuatro apoyos, arquea la espalda hacia arriba (gato) y luego hacia abajo dejando caer el abdomen (camello), de forma lenta.'},
+      {name:'Gato–camello', sub:'columna', vol:'8-10', target:['lowerback','abs','traps'], move:'bounce',
+        cue:'En cuatro apoyos, arquea la espalda hacia arriba y luego déjala caer lentamente, movilizando toda la columna.'},
       {name:'Estiramiento de isquios', vol:'2×30s', target:['hamstrings'], move:'pulse',
-        cue:'Con una pierna extendida, inclina el torso hacia adelante manteniendo la espalda recta hasta sentir el estiramiento detrás del muslo.'},
+        cue:'Con una pierna extendida, inclina el torso al frente con la espalda recta hasta notar el estiramiento detrás del muslo.'},
       {name:'Apertura de pecho en pared', vol:'2×30s', target:['chest','frontdelt'], move:'pulse',
-        cue:'Apoya el antebrazo en la pared con el codo a 90° y gira el cuerpo hacia el lado contrario para abrir el pecho y el hombro.'},
-      {name:'Pass-through de hombros', sub:'con palo o banda', vol:'2×10', target:['frontdelt','reardelt'], move:'rotate',
-        cue:'Sujeta una banda o palo con los brazos extendidos y llévalo desde el frente hasta atrás de la cabeza, manteniendo los brazos rectos.'},
+        cue:'Apoya el antebrazo en la pared con el codo a 90° y gira el cuerpo hacia el lado contrario para abrir pecho y hombro.'},
       {name:'Sentadilla profunda sostenida', vol:'2×45s', target:['quads','glutes'], move:'pulse',
-        cue:'Baja a la posición más profunda de sentadilla que puedas y mantente ahí, relajando caderas y zona lumbar.'},
-      {name:'Cardio suave', sub:'opcional', vol:'20′', target:['calves','quads'], move:'bounce',
-        cue:'Mantén un ritmo ligero y constante (caminar rápido, bici o elíptica) para activar la circulación.'},
+        cue:'Baja a tu sentadilla más profunda y mantente ahí relajando caderas y zona lumbar.'},
     ]
   }
 };
