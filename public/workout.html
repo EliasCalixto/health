@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#15161B">
 <title>Mi Rutina — En casa (barras + corredora)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2048%2048%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M24%2042%20C%208%2030%204%2020%204%2014%20C%204%207%209%202%2016%202%20C%2020%202%2023%204%2024%208%20C%2025%204%2028%202%2032%202%20C%2039%202%2044%207%2044%2014%20C%2044%2020%2040%2030%2024%2042%20Z%22%20stroke%3D%22%234F9D69%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M5%2024%20H15%20L19%2014%20L25%2033%20L29%2018%20L33%2024%20H43%22%20stroke%3D%22%234F9D69%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -309,7 +310,7 @@
   <header>
     <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px">
       <div class="eyebrow" style="margin-bottom:0">Plan semanal · 45 min / día</div>
-      <a href="/" style="
+      <a id="to-dashboard" href="./" style="
         flex-shrink:0;display:flex;align-items:center;gap:7px;
         background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
         border-radius:100px;padding:7px 14px 7px 10px;
@@ -325,7 +326,13 @@
         Dashboard
       </a>
     </div>
-    <h1>Mi rutina<span>en casa</span></h1>
+    <div style="display:flex;align-items:center;gap:clamp(12px,3vw,18px)">
+      <svg viewBox="0 0 48 48" fill="none" style="width:clamp(46px,11vw,70px);height:auto;flex-shrink:0" aria-hidden="true">
+        <path d="M24 42 C 8 30 4 20 4 14 C 4 7 9 2 16 2 C 20 2 23 4 24 8 C 25 4 28 2 32 2 C 39 2 44 7 44 14 C 44 20 40 30 24 42 Z" stroke="#4F9D69" stroke-width="3" stroke-linejoin="round" fill="none"/>
+        <path d="M5 24 H15 L19 14 L25 33 L29 18 L33 24 H43" stroke="#4F9D69" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <h1>Mi rutina<span>en casa</span></h1>
+    </div>
     <div class="meta">
       <b>CALISTENIA + CARRERA</b>
       <b>BARRAS · CORREDORA</b>
@@ -425,6 +432,14 @@
 </div>
 
 <script>
+// El dashboard vive en <basePath>/ y esta página en <basePath>/workout.
+// Derivamos el destino quitando el segmento "workout" de la ruta actual para
+// que el botón funcione bajo cualquier basePath (p. ej. /health/) o en local.
+(function(){
+  const a = document.getElementById('to-dashboard');
+  if(a){ a.setAttribute('href', location.pathname.replace(/\/workout(?:\.html)?\/?$/, '/') || '/'); }
+})();
+
 const ACCENT = {push:'#FF8A3D', push2:'#FF8A3D', pull:'#38C7F0', pull2:'#38C7F0', cardio:'#FF5C5C', legs:'#C2E23A', mob:'#B79CFF'};
 
 const WEEK = [
