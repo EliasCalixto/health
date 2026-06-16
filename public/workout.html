@@ -307,7 +307,24 @@
 <div class="wrap" id="app">
 
   <header>
-    <div class="eyebrow">Plan semanal · 45 min / día</div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px">
+      <div class="eyebrow" style="margin-bottom:0">Plan semanal · 45 min / día</div>
+      <a href="/" style="
+        flex-shrink:0;display:flex;align-items:center;gap:7px;
+        background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+        border-radius:100px;padding:7px 14px 7px 10px;
+        font-family:var(--body);font-size:12px;font-weight:500;
+        color:var(--muted);text-decoration:none;
+        transition:background .2s,border-color .2s,color .2s;
+      " onmouseover="this.style.background='rgba(255,255,255,.11)';this.style.color='var(--txt)'"
+         onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.color='var(--muted)'">
+        <svg viewBox="0 0 48 48" fill="none" style="width:18px;height:18px;flex-shrink:0" aria-hidden="true">
+          <path d="M24 42 C 8 30 4 20 4 14 C 4 7 9 2 16 2 C 20 2 23 4 24 8 C 25 4 28 2 32 2 C 39 2 44 7 44 14 C 44 20 40 30 24 42 Z" stroke="#4F9D69" stroke-width="3" stroke-linejoin="round" fill="none"/>
+          <path d="M5 24 H15 L19 14 L25 33 L29 18 L33 24 H43" stroke="#4F9D69" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        Dashboard
+      </a>
+    </div>
     <h1>Mi rutina<span>en casa</span></h1>
     <div class="meta">
       <b>CALISTENIA + CARRERA</b>

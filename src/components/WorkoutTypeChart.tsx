@@ -13,13 +13,13 @@ import {
 import type { WorkoutTypeSummary } from "@/lib/types";
 
 const COLORS: Record<string, string> = {
-  Caminata: "#3b82f6",
-  Correr: "#f97316",
-  Core: "#a855f7",
-  Fútbol: "#22c55e",
-  "Saltar cuerda": "#ec4899",
-  "Fitness Gaming": "#eab308",
-  Otro: "#94a3b8",
+  Caminata: "#8dbad6",
+  Correr: "#f8ccad",
+  Core: "#8ea9db",
+  Fútbol: "#b9f5c4",
+  "Saltar cuerda": "#fd9a9a",
+  "Fitness Gaming": "#fef2cb",
+  Otro: "#abb9d4",
 };
 
 export function WorkoutTypeChart({ data }: { data: WorkoutTypeSummary[] }) {
