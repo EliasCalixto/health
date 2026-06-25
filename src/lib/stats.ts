@@ -15,6 +15,7 @@ export type MetricKey = keyof Pick<
 export type KpiSummary = {
   key: MetricKey;
   label: string;
+  icon: string;
   unit: string;
   value: number | null;
   comparison: number | null;
@@ -26,18 +27,19 @@ export type KpiSummary = {
 const KPI_DEFS: {
   key: MetricKey;
   label: string;
+  icon: string;
   unit: string;
   decimals: number;
   higherIsBetter: boolean;
 }[] = [
-  { key: "steps", label: "Pasos por día", unit: "pasos", decimals: 0, higherIsBetter: true },
-  { key: "sleepHours", label: "Sueño por noche", unit: "h", decimals: 1, higherIsBetter: true },
-  { key: "restingHeartRate", label: "FC en reposo", unit: "bpm", decimals: 1, higherIsBetter: false },
-  { key: "hrv", label: "HRV (SDNN)", unit: "ms", decimals: 1, higherIsBetter: true },
-  { key: "vo2max", label: "VO₂máx", unit: "mL/min·kg", decimals: 1, higherIsBetter: true },
-  { key: "exerciseMinutes", label: "Ejercicio por día", unit: "min", decimals: 0, higherIsBetter: true },
-  { key: "energy", label: "Energía activa diaria", unit: "Cal", decimals: 0, higherIsBetter: true },
-  { key: "floors", label: "Pisos por día", unit: "pisos", decimals: 1, higherIsBetter: true },
+  { key: "steps", label: "Pasos por día", icon: "👟", unit: "pasos", decimals: 0, higherIsBetter: true },
+  { key: "sleepHours", label: "Sueño por noche", icon: "😴", unit: "h", decimals: 1, higherIsBetter: true },
+  { key: "restingHeartRate", label: "FC en reposo", icon: "❤️", unit: "bpm", decimals: 1, higherIsBetter: false },
+  { key: "hrv", label: "HRV (SDNN)", icon: "📈", unit: "ms", decimals: 1, higherIsBetter: true },
+  { key: "vo2max", label: "VO₂máx", icon: "🫁", unit: "mL/min·kg", decimals: 1, higherIsBetter: true },
+  { key: "exerciseMinutes", label: "Ejercicio por día", icon: "🔥", unit: "min", decimals: 0, higherIsBetter: true },
+  { key: "energy", label: "Energía activa diaria", icon: "⚡", unit: "Cal", decimals: 0, higherIsBetter: true },
+  { key: "floors", label: "Pisos por día", icon: "🪜", unit: "pisos", decimals: 1, higherIsBetter: true },
 ];
 
 function average(values: number[]): number | null {
@@ -53,9 +55,10 @@ export function buildKpiSummaries(
   months: MonthlySummary[],
   comparisonMonths: MonthlySummary[],
 ): KpiSummary[] {
-  return KPI_DEFS.map(({ key, label, unit, decimals, higherIsBetter }) => ({
+  return KPI_DEFS.map(({ key, label, icon, unit, decimals, higherIsBetter }) => ({
     key,
     label,
+    icon,
     unit,
     decimals,
     higherIsBetter,

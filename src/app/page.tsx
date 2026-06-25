@@ -1,4 +1,5 @@
 import { NOTION_TOKEN } from "@/lib/config";
+import { formatBuildTimestamp } from "@/lib/format";
 import {
   getHealthPageIntro,
   getMonthlySummary,
@@ -34,23 +35,29 @@ export default async function Home() {
   }
 
   const workoutTypes = summarizeWorkoutsByType(workouts);
+  const generatedAt = formatBuildTimestamp(new Date());
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
       <header>
-        <div className="flex items-start justify-between gap-4">
-          <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
-            <HeartRateIcon className="h-7 w-7 sm:h-8 sm:w-8" />
-            Health Dashboard
-          </h1>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+              <HeartRateIcon className="h-7 w-7 sm:h-8 sm:w-8" />
+              Health Dashboard
+            </h1>
+            <p className="mt-1 text-xs text-zinc-400">
+              Datos actualizados: {generatedAt}
+            </p>
+          </div>
           <Link
             href="/workout"
-            className="shrink-0 rounded-full border border-black/10 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:border-black/30 hover:bg-black/5 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/30 dark:hover:bg-white/5"
+            className="shrink-0 rounded-full border border-black/10 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:border-black/30 hover:bg-black/5"
           >
             🏋️ Rutina
           </Link>
         </div>
         {intro && (
-          <p className="mt-2 max-w-3xl text-sm text-zinc-500 dark:text-zinc-400">
+          <p className="mt-2 max-w-3xl text-sm text-zinc-500">
             <InlineMarkdown text={intro} />
           </p>
         )}
@@ -67,14 +74,14 @@ export default async function Home() {
           <WorkoutTypeSummaryTable data={workoutTypes} />
         </div>
         <div className="mt-6">
-          <h3 className="mb-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+          <h3 className="mb-2 text-sm font-semibold text-zinc-500">
             Últimas sesiones
           </h3>
           <WorkoutsTable workouts={workouts.slice(0, 15)} />
         </div>
       </SectionCard>
 
-      <SectionCard title="🧠 Therapy">
+      <SectionCard title="🧠 Terapia">
         <TherapyList sessions={therapy} />
       </SectionCard>
     </div>
@@ -107,7 +114,7 @@ function ErrorNotice({ error }: { error: unknown }) {
       </p>
       <p className="text-sm text-zinc-400">
         Verifica que NOTION_TOKEN sea válido y que la integración tenga acceso a la página
-        &quot;Health&quot; y a sus bases de datos (📅 Resumen Mensual, 🏃 Entrenamientos, 🧠 Therapy).
+        &quot;Health&quot; y a sus bases de datos (📅 Resumen Mensual, 🏃 Entrenamientos, 🧠 Terapia).
       </p>
     </div>
   );
