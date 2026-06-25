@@ -20,7 +20,7 @@ export function WorkoutsTable({ workouts }: { workouts: Workout[] }) {
           {workouts.map((workout, i) => (
             <tr
               key={`${workout.date}-${workout.activity}-${i}`}
-              className="border-b border-black/5 last:border-0 dark:border-white/5"
+              className="border-b border-black/5 last:border-0 transition-colors hover:bg-black/[0.03]"
             >
               <td className="py-2 pr-4 whitespace-nowrap">{formatDate(workout.date)}</td>
               <td className="py-2 pr-4">{workout.activity}</td>

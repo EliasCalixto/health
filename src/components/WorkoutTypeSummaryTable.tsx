@@ -19,7 +19,7 @@ export function WorkoutTypeSummaryTable({ data }: { data: WorkoutTypeSummary[] }
           {data.map((row) => (
             <tr
               key={row.type}
-              className="border-b border-black/5 last:border-0 dark:border-white/5"
+              className="border-b border-black/5 last:border-0 transition-colors hover:bg-black/[0.03]"
             >
               <td className="py-2 pr-4 font-medium">{row.type}</td>
               <td className="py-2 pr-4">{row.sessions}</td>
