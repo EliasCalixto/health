@@ -7,7 +7,6 @@ import {
   getWorkouts,
 } from "@/lib/notion";
 import { summarizeWorkoutsByType } from "@/lib/stats";
-import Link from "next/link";
 import { HeartRateIcon } from "@/components/HeartRateIcon";
 import { InlineMarkdown } from "@/components/InlineMarkdown";
 import { MonthlyDashboard } from "@/components/MonthlyDashboard";
@@ -39,23 +38,13 @@ export default async function Home() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 lg:px-8">
       <header>
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
-              <HeartRateIcon className="h-7 w-7 sm:h-8 sm:w-8" />
-              Health Dashboard
-            </h1>
-            <p className="mt-1 text-xs text-zinc-400">
-              Datos actualizados: {generatedAt}
-            </p>
-          </div>
-          <Link
-            href="/workout"
-            className="shrink-0 rounded-full border border-black/10 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:border-black/30 hover:bg-black/5"
-          >
-            🏋️ Rutina
-          </Link>
-        </div>
+        <h1 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+          <HeartRateIcon className="h-7 w-7 sm:h-8 sm:w-8" />
+          Health Dashboard
+        </h1>
+        <p className="mt-1 text-xs text-zinc-400">
+          Datos actualizados: {generatedAt}
+        </p>
         {intro && (
           <p className="mt-2 max-w-3xl text-sm text-zinc-500 break-words">
             <InlineMarkdown text={intro} />
