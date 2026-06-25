@@ -57,7 +57,7 @@ export default async function Home() {
           </Link>
         </div>
         {intro && (
-          <p className="mt-2 max-w-3xl text-sm text-zinc-500">
+          <p className="mt-2 max-w-3xl text-sm text-zinc-500 break-words">
             <InlineMarkdown text={intro} />
           </p>
         )}

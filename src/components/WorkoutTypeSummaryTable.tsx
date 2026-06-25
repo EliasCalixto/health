@@ -1,4 +1,5 @@
 import { formatNumber } from "@/lib/format";
+import { getWorkoutTypeColor } from "@/lib/workoutColors";
 import type { WorkoutTypeSummary } from "@/lib/types";
 
 export function WorkoutTypeSummaryTable({ data }: { data: WorkoutTypeSummary[] }) {
@@ -21,7 +22,14 @@ export function WorkoutTypeSummaryTable({ data }: { data: WorkoutTypeSummary[] }
               key={row.type}
               className="border-b border-black/5 last:border-0 transition-colors hover:bg-black/[0.03]"
             >
-              <td className="py-2 pr-4 font-medium">{row.type}</td>
+              <td className="py-2 pr-4 font-medium">
+                <span
+                  className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium text-zinc-700"
+                  style={{ backgroundColor: getWorkoutTypeColor(row.type) }}
+                >
+                  {row.type}
+                </span>
+              </td>
               <td className="py-2 pr-4">{row.sessions}</td>
               <td className="py-2 pr-4 whitespace-nowrap">
                 {Math.floor(row.totalDurationMinutes / 60)}h{" "}

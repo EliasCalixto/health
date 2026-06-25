@@ -1,4 +1,5 @@
 import { formatDate, formatDuration, formatNumber } from "@/lib/format";
+import { getWorkoutTypeColor } from "@/lib/workoutColors";
 import type { Workout } from "@/lib/types";
 
 export function WorkoutsTable({ workouts }: { workouts: Workout[] }) {
@@ -24,7 +25,18 @@ export function WorkoutsTable({ workouts }: { workouts: Workout[] }) {
             >
               <td className="py-2 pr-4 whitespace-nowrap">{formatDate(workout.date)}</td>
               <td className="py-2 pr-4">{workout.activity}</td>
-              <td className="py-2 pr-4">{workout.type ?? "—"}</td>
+              <td className="py-2 pr-4">
+                {workout.type ? (
+                  <span
+                    className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium text-zinc-700"
+                    style={{ backgroundColor: getWorkoutTypeColor(workout.type) }}
+                  >
+                    {workout.type}
+                  </span>
+                ) : (
+                  "—"
+                )}
+              </td>
               <td className="py-2 pr-4 whitespace-nowrap">{formatDuration(workout.durationMinutes)}</td>
               <td className="py-2 pr-4 whitespace-nowrap">
                 {workout.distanceKm != null ? `${formatNumber(workout.distanceKm, 1)} km` : "—"}

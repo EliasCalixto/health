@@ -99,6 +99,7 @@ const KNOWN_WORKOUT_TYPES: WorkoutType[] = [
   "Fútbol",
   "Saltar cuerda",
   "Fitness Gaming",
+  "Fuerza",
 ];
 
 export async function getWorkouts(): Promise<Workout[]> {
@@ -146,6 +147,13 @@ export async function getHealthPageIntro(): Promise<string | null> {
   const intro =
     firstHeadingIndex === -1 ? markdown : markdown.slice(0, firstHeadingIndex);
 
-  const cleaned = intro.trim();
+  // Notion serializa los enlaces a bases de datos incrustadas como pseudo-tags
+  // "<database ...>...</database>" dentro del markdown; no son contenido legible,
+  // así que se descartan en vez de mostrarlos como texto crudo.
+  const cleaned = intro
+    .replace(/<database\b[^>]*>[\s\S]*?<\/database>/gi, "")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
   return cleaned.length > 0 ? cleaned : null;
 }

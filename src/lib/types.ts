@@ -17,7 +17,8 @@ export type WorkoutType =
   | "Core"
   | "Fútbol"
   | "Saltar cuerda"
-  | "Fitness Gaming";
+  | "Fitness Gaming"
+  | "Fuerza";
 
 export type Workout = {
   activity: string;

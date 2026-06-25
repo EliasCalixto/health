@@ -10,17 +10,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { getWorkoutTypeColor } from "@/lib/workoutColors";
 import type { WorkoutTypeSummary } from "@/lib/types";
-
-const COLORS: Record<string, string> = {
-  Caminata: "#8dbad6",
-  Correr: "#f8ccad",
-  Core: "#8ea9db",
-  Fútbol: "#b9f5c4",
-  "Saltar cuerda": "#fd9a9a",
-  "Fitness Gaming": "#fef2cb",
-  Otro: "#abb9d4",
-};
 
 export function WorkoutTypeChart({ data }: { data: WorkoutTypeSummary[] }) {
   return (
@@ -36,7 +27,7 @@ export function WorkoutTypeChart({ data }: { data: WorkoutTypeSummary[] }) {
         />
         <Bar dataKey="sessions" name="Sesiones" radius={[6, 6, 0, 0]}>
           {data.map((entry) => (
-            <Cell key={entry.type} fill={COLORS[entry.type] ?? COLORS.Otro} />
+            <Cell key={entry.type} fill={getWorkoutTypeColor(entry.type)} />
           ))}
         </Bar>
       </BarChart>
