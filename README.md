@@ -1,3 +1,5 @@
+DEPRECATED - ALL MOVED INTO darkesthj
+
 This is a [Next.js](https://nextjs.org) dashboard that reads health data (pasos, sueño, frecuencia cardíaca, HRV, VO₂máx, entrenamientos y sesiones de terapia) directamente desde la página "Health" de Notion.
 
 ## Configuración
